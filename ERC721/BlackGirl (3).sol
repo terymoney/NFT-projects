@@ -65,26 +65,26 @@ contract BlackGirl is ERC721, ERC721Enumerable, ERC721Pausable,  ERC721URIStorag
     //ONLY ALLOW THE PEOPLE ON THE ALLOW LIST TO MINT
     //ADD PUBLICMINTOPEN AND ALLOWLISTMINTOPEN VARIABLES
     function allowlistMint(uint256 amount) public payable  {
-        require(allowlistMintopen, 'ALLOW LIST CLOSED');
-        require(allowList[msg.sender], 'YOU ARE NOT ON THE ALLOW LIST');
-        require(msg.value ==  amount * 0.0001 ether, 'NOT ENOUGH FUNDS');
-        require(totalSupply() + amount <= allowlistmaxSupply, 'SOLD OUT');
+        require(allowlistMintopen, "ALLOW LIST CLOSED");
+        require(allowList[msg.sender], "YOU ARE NOT ON THE ALLOW LIST");
+        require(msg.value ==  amount * 0.0001 ether, "NOT ENOUGH FUNDS");
+        require(totalSupply() + amount <= allowlistmaxSupply, "SOLD OUT");
         for (uint256 i = 0; i < amount; i++) {
         internalMint();
     }
         
     }
 
-    //LIMIT TOKEN MINTED PER WALLET
+   //LIMIT TOKEN MINTED PER WALLET
     //ADD PAYMENT
     //LIMIT SUPPLY
     function publicMint(uint256 amount) public payable  {
-        require(publicMintopen, 'PUBLIC MINT CLOSED');
+        require(publicMintopen, "PUBLIC MINT CLOSED");
         require(amount > 0,"MUST MINT ATLEAST ONE TOKEN"); //MUST MINT ATLEAST ONE TOKEN
-        require(Walletmints[msg.sender] + amount <= maxPerWallet, 'EXCEEDED MAX PER WALLET'  );
+        require(Walletmints[msg.sender] + amount <= maxPerWallet, "EXCEEDED MAX PER WALLET");
         Walletmints[msg.sender] += amount;
-        require(msg.value == amount * 0.001 ether, 'NOT ENOUGH FUNDS');
-        require(totalSupply() + amount <= maxSupply, 'SOLD OUT');
+        require(msg.value == amount * 0.001 ether, "NOT ENOUGH FUNDS");
+        require(totalSupply() + amount <= maxSupply, "SOLD OUT");
         for (uint256 i = 0; i < amount; i++) {
         internalMint();
     }
